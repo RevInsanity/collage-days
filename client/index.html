@@ -48,7 +48,7 @@
                 const email = document.getElementById("email").value.trim();
 
                 try {
-                    const res = await fetch(API_URL, {
+                    const res = await fetch(API_URL + '/register', {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ name, email }),
@@ -69,7 +69,7 @@
             // load users into table
             async function loadUsers() {
                 try {
-                    const res = await fetch(API_URL);
+                    const res = await fetch(API_URL + '/getUsers');
                     if (!res.ok) throw new Error(`Server returned ${res.status}`);
                     const users = await res.json();
                     const table = document.getElementById("usertable");
