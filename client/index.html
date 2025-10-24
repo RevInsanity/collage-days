@@ -63,6 +63,7 @@
                 try {
                     const res = await fetch(API_URL + '/register', {
                         method: "POST",
+                        headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ name, address, phonenumber, email }),
                     });
 
@@ -73,6 +74,7 @@
                     document.getElementById("address").value = "";
                     document.getElementById("phonenumber").value = "";
                     document.getElementById("email").value = "";
+                    alert("user created successfully!");
                     loadUsers();
                 } catch (err) {
                     console.error("Failed to save user:", err);
