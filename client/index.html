@@ -18,6 +18,14 @@
                     <input type="text" id="name" class="form-control" required>
                 </div>
                 <div class="mb-3">
+                    <label for="address" class="form-label">Address:</label>
+                    <input type="text" id="address" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="phone-number" class="form-label">Phone-number:</label>
+                    <input type="int" id="phone-number" class="form-control" required>
+                </div>
+                <div class="mb-3">
                     <label for="email" class="form-label">E-mail:</label>
                     <input type="email" id="email" class="form-control" required>
                 </div>
@@ -30,6 +38,8 @@
                     <thead>
                         <tr>
                             <th>NAME</th>
+                            <th>ADDRESS</th>
+                            <th>PHONE-NUMBER</th>
                             <th>E-mail</th>
                         </tr>
                     </thead>
@@ -45,19 +55,23 @@
             document.getElementById("userform").addEventListener("submit", async (e) => {
                 e.preventDefault();
                 const name = document.getElementById("name").value.trim();
+                const address = document.getElementById("address").value.trim();
+                const phonenumber = document.getElementById("phone-number").value.trim();
                 const email = document.getElementById("email").value.trim();
+                
 
                 try {
                     const res = await fetch(API_URL + '/register', {
                         method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ name, email }),
+                        body: JSON.stringify({ name, address, phonenumber, email }),
                     });
 
                     if (!res.ok) throw new Error(`Server returned ${res.status}`);
 
                     // clear form
                     document.getElementById("name").value = "";
+                    document.getElementById("address").value = "";
+                    document.getElementById("phonenumber").value = "";
                     document.getElementById("email").value = "";
                     loadUsers();
                 } catch (err) {
@@ -75,7 +89,7 @@
                     const table = document.getElementById("usertable");
                     table.innerHTML = "";
                     users.forEach((user) => {
-                        table.innerHTML += `<tr><td>${escapeHtml(user.name)}</td><td>${escapeHtml(user.email)}</td></tr>`;
+                        table.innerHTML += `<tr><td>${escapeHtml(user.name)}</td><td>${escapeHtml(user.address)}</td><td>${escapeHtml(user.phonenumber)}</td><td>${escapeHtml(user.email)}</td></tr>`;
                     });
                 } catch (err) {
                     console.error("Failed to load users:", err);
